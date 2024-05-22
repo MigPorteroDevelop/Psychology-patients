@@ -1,7 +1,20 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/Header.vue';
+import Form from './components/Form.vue';
+import Patient from './components/Patient.vue';
 </script>
 
 <template>
-  <h1 class="text-6xl">HelloWorld</h1>
+  <div class="container mx-auto mt-20">
+    <div class="mb-10">
+      <Header />
+    </div>
+    <div class=" md:flex">
+      <Form />
+
+      <div class="md:w-1/2 md:h-screen overflow-y-scroll mx-auto">
+        <Patient />
+      </div>
+    </div>
+  </div>
 </template>
