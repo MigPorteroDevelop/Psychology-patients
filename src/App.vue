@@ -99,7 +99,7 @@ onMounted(() => {
             @delete-patient="deletePatient"
           />
         </div>
-        <p v-else class="mt-10 text-center text-2xl font-bold uppercase">No patients</p>
+        <p v-else class="my-16 sm:my-0 text-center text-2xl font-bold uppercase">No patients</p>
       </div>
     </div>
   </div>

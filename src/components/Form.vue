@@ -60,7 +60,7 @@ const editing = computed(() => {
 <template>
   <div class="md:w-1/2">
     <div class="font-sans">
-      <div class="relative min-h-screen flex flex-col items-center py-16">
+      <div class="relative min-h-screen flex flex-col items-center">
         <div class="relative sm:max-w-sm w-full">
           <div class="card bg-color1 shadow-lg w-full h-full rounded-3xl absolute transform rotate-6"></div>
           <div class="card bg-color2 shadow-lg w-full h-full rounded-3xl absolute transform -rotate-6"></div>
