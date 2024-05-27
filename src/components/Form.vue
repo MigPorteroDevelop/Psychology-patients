@@ -8,23 +8,35 @@ const alert = reactive({
   message: ""
 });
 
-const patient = reactive({
-  name: "",
-  email: "",
-  discharge: "",
-  symptoms: ""
+const emit = defineEmits(['update:name', 'update:email', 'update:discharge', 'update:symptoms','save-patient'])
 
-});
+const props = defineProps({
+  name:{
+    type: String,
+    required: true
+  },
+  email:{
+    type: String,
+    required: true
+  },
+  discharge:{
+    type: String,
+    required: true
+  },
+  symptoms:{
+    type: String,
+    required: true
+  }
+})
 
 const validate = () => {
-  if (Object.values(patient).includes('')) {
-    alert.type = "error",
-    alert.message = "All fields are required"
-    return
+  if (Object.values(props).includes('')) {
+    alert.type = "error";
+    alert.message = "All fields are required";
   } else {
-    alert.type = "success",
-    alert.message = "Saved successfully"
-    return
+    alert.type = "success";
+    alert.message = "Saved successfully";
+    emit('save-patient');
   }
 }
 </script>
@@ -36,47 +48,63 @@ const validate = () => {
         <div class="relative sm:max-w-sm w-full">
           <div class="card bg-color1 shadow-lg w-full h-full rounded-3xl absolute transform rotate-6"></div>
           <div class="card bg-color2 shadow-lg w-full h-full rounded-3xl absolute transform -rotate-6"></div>
-          <div class="relative w-full rounded-3xl px-6 py-4 bg-gray-100 shadow-md">
-            <Alert 
-              v-if="alert.message"
-              :alert="alert"
-            />
+          <div class="relative w-full rounded-3xl px-6 py-4 bg-white shadow-md">
+            <Alert v-if="alert.message" :alert="alert" />
             <form class="mt-10" @submit.prevent="validate">
               <div>
                 <label for="name" class="block text-gray-700 uppercase font-bold">
                   Name
                 </label>
-                <input id="name" type="text" placeholder="Name"
-                  class="mt-1 p-2 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"
-                  v-model="patient.name">
-              </div>
+                <input 
+                  id="name" 
+                  type="text" 
+                  placeholder="Name"
+                  class="mt-1 p-2 block w-full border-none bg-white h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"
+                  :value="name"
+                  @input="$emit('update:name', $event.target.value)"
+                  >
+                  
+                </div>
 
               <div class="mt-7">
                 <label for="email" class="block text-gray-700 uppercase font-bold">
                   Email
                 </label>
-                <input id="email" type="email" placeholder="Email"
-                  class="mt-1 p-2 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"
-                  v-model="patient.email">
+                <input 
+                  id="email" 
+                  type="email" 
+                  placeholder="Email"
+                  class="mt-1 p-2 block w-full border-none bg-white h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"
+                  :value="email"
+                  @input="$emit('update:email', $event.target.value)"
+                >
               </div>
 
               <div class="mt-7">
                 <label for="discharge" class="block text-gray-700 uppercase font-bold">
                   Discharge
                 </label>
-                <input id="date" type="date"
-                  class="mt-1 p-2 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"
-                  v-model="patient.discharge">
-
+                <input 
+                  id="date" 
+                  type="date"
+                  class="mt-1 p-2 block w-full border-none bg-white h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"
+                  :value="discharge"
+                  @input="$emit('update:discharge', $event.target.value)"
+                >
               </div>
 
               <div class="mt-7">
                 <label for="symptoms" class="block text-gray-700 uppercase font-bold">
                   Symptoms
                 </label>
-                <textarea id="symptoms" type="text" placeholder="Describe the symptoms"
-                  class="mt-1 p-2 h-40 block w-full border-none bg-gray-100 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"
-                  v-model="patient.symptoms" />
+                <textarea 
+                id="symptoms" 
+                type="text" 
+                placeholder="Describe the symptoms"
+                class="mt-1 p-2 h-28 block w-full border-none bg-white rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0" 
+                :value="symptoms"
+                @input="$emit('update:symptoms', $event.target.value)"
+                />
               </div>
 
               <div class="mt-7">
