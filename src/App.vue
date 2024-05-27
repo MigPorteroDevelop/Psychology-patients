@@ -16,19 +16,37 @@ const patient = reactive({
 });
 
 const savePatient = () => {
-  patients.value.push({
+  if(patient.id){
+    //destructuring
+    const { id } = patient; 
+    //Find index in array patients
+    const i = patients.value.findIndex((patientState) => patientState.id === id)
+    //We replace the existing patient with the updated copy with {...}
+    patients.value[i] = {...patient}
+  }else{
+    patients.value.push({
     //Create a copy with spread operator
     //Unique patient object is created and then the object is reseted
-    //
     ...patient,
-    //We add the id later, so, we don't add down for reset
     id: uid()
-  })
+    })
+  }
 
-  patient.name= "",
-  patient.email= "",
-  patient.discharge= "",
-  patient.symptoms= ""
+  //Reset
+  Object.assign(patient, {
+    id: null,
+    name: '',
+    email: '',
+    discharge: '',
+    symptoms: ''
+  })
+}
+
+//Pass info to patient component
+const updatePatient = (id) => {
+  const newInfoPatient = patients.value.filter(patient => patient.id === id)[0]
+  Object.assign(patient, newInfoPatient)
+  console.log(newInfoPatient)
 }
 
 </script>
@@ -45,6 +63,7 @@ const savePatient = () => {
       v-model:discharge="patient.discharge"
       v-model:symptoms="patient.symptoms" 
       @save-patient = "savePatient"
+      :id="patient.id"
       />
 
       <div class="md:w-1/2 md:h-screen overflow-y-scroll mx-auto">
@@ -52,6 +71,7 @@ const savePatient = () => {
           <Patient 
             v-for="patient in patients"
             :patient="patient"
+            @update-patient="updatePatient"
           />
         </div>
         <p v-else class="mt-10 text-center text-2xl font-bold uppercase">No patients</p>

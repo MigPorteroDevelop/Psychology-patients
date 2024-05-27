@@ -1,4 +1,6 @@
 <script setup>
+defineEmits(['update-patient'])
+
 defineProps({
   patient:{
     type: Object,
@@ -41,7 +43,9 @@ defineProps({
 
     <div class="grid md:grid-cols-2 gap-5 mt-10">
       <button type="button"
-        class="block w-full py-2 px-10 bg-color2 hover:shadow-inner focus:outline-none transition duration-500 ease-in-out transform hover:-translate-x hover:scale-105 text-white font-bold uppercase rounded-lg">
+        class="block w-full py-2 px-10 bg-color2 hover:shadow-inner focus:outline-none transition duration-500 ease-in-out transform hover:-translate-x hover:scale-105 text-white font-bold uppercase rounded-lg"
+        @click="$emit('update-patient', patient.id)"
+        >
         Edit</button>
 
       <button type="button"
