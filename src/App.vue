@@ -46,7 +46,6 @@ const savePatient = () => {
 const updatePatient = (id) => {
   const newInfoPatient = patients.value.filter(patient => patient.id === id)[0]
   Object.assign(patient, newInfoPatient)
-  console.log(newInfoPatient)
 }
 
 </script>

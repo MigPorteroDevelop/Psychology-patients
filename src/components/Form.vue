@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from 'vue';
+import { reactive, computed } from 'vue';
 import Alert from './Alert.vue';
 
 //states
@@ -11,6 +11,10 @@ const alert = reactive({
 const emit = defineEmits(['update:name', 'update:email', 'update:discharge', 'update:symptoms','save-patient'])
 
 const props = defineProps({
+  id:{
+    type: [String, null],
+    required: true
+  },
   name:{
     type: String,
     required: true
@@ -45,6 +49,12 @@ const validate = () => {
     }, 3000)
   }
 }
+
+//Always synchronized with id
+const editing = computed(() => {
+  return props.id
+})
+
 </script>
 
 <template>
@@ -114,10 +124,12 @@ const validate = () => {
               </div>
 
               <div class="mt-7">
-                <button
-                  class="bg-color3 uppercase font-bold w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out transform hover:-translate-x hover:scale-105">
-                  Register patient
-                </button>
+                <input
+                  type="submit"
+                  class="bg-color3 uppercase font-bold w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out transform hover:-translate-x hover:scale-105"
+                  :value="[editing ? 'Save changes' : 'Register patient']"
+                  >
+              </input>
               </div>
             </form>
           </div>
