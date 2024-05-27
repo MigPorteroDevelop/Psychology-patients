@@ -1,10 +1,9 @@
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, watch, onMounted } from 'vue';
 import { uid } from 'uid';
 import Header from './components/Header.vue';
 import Form from './components/Form.vue';
 import Patient from './components/Patient.vue';
-import Alert from './components/Alert.vue';
 
 const patients = ref([]);
 
@@ -51,8 +50,29 @@ const updatePatient = (id) => {
 
 const deletePatient = (id) => {
   patients.value = patients.value.filter(patient => patient.id !== id)
-  console.log(patients.value)
 }
+
+//Save in LocalStorage
+watch(patients, () => {
+  saveLocalStorage();
+}, {
+  //access every atribute of cart
+  deep:true
+})
+
+//LocalStorage only save strings
+const saveLocalStorage = () => {
+  localStorage.setItem('patients', JSON.stringify(patients.value))
+}
+
+//persistence
+onMounted(() => {
+  const patientsStorage = localStorage.getItem('patients');
+
+  if(patientsStorage){
+    patients.value = JSON.parse(patientsStorage)
+  }
+})
 </script>
 
 <template>
