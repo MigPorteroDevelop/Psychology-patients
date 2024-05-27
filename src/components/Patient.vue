@@ -1,5 +1,5 @@
 <script setup>
-defineEmits(['update-patient'])
+defineEmits(['update-patient', 'delete-patient'])
 
 defineProps({
   patient:{
@@ -49,7 +49,9 @@ defineProps({
         Edit</button>
 
       <button type="button"
-        class="block w-full py-2 px-10 bg-color1 hover:shadow-inner focus:outline-none transition duration-500 ease-in-out transform hover:-translate-x hover:scale-105 text-white font-bold uppercase rounded-lg">
+        class="block w-full py-2 px-10 bg-color1 hover:shadow-inner focus:outline-none transition duration-500 ease-in-out transform hover:-translate-x hover:scale-105 text-white font-bold uppercase rounded-lg"
+        @click="$emit('delete-patient', patient.id)"
+        >
         Delete</button>
     </div>
   </div>

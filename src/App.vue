@@ -4,6 +4,7 @@ import { uid } from 'uid';
 import Header from './components/Header.vue';
 import Form from './components/Form.vue';
 import Patient from './components/Patient.vue';
+import Alert from './components/Alert.vue';
 
 const patients = ref([]);
 
@@ -48,6 +49,10 @@ const updatePatient = (id) => {
   Object.assign(patient, newInfoPatient)
 }
 
+const deletePatient = (id) => {
+  patients.value = patients.value.filter(patient => patient.id !== id)
+  console.log(patients.value)
+}
 </script>
 
 <template>
@@ -71,6 +76,7 @@ const updatePatient = (id) => {
             v-for="patient in patients"
             :patient="patient"
             @update-patient="updatePatient"
+            @delete-patient="deletePatient"
           />
         </div>
         <p v-else class="mt-10 text-center text-2xl font-bold uppercase">No patients</p>
