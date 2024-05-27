@@ -80,16 +80,17 @@ onMounted(() => {
     <div class="mb-10">
       <Header />
     </div>
-    <div class="md:flex">
-      <Form 
-      v-model:name="patient.name"
-      v-model:email="patient.email"
-      v-model:discharge="patient.discharge"
-      v-model:symptoms="patient.symptoms" 
-      @save-patient = "savePatient"
-      :id="patient.id"
-      />
-
+    <div class="lg:flex">
+      <div class="md:w-1/2 md:h-screen mx-auto">
+        <Form 
+        v-model:name="patient.name"
+        v-model:email="patient.email"
+        v-model:discharge="patient.discharge"
+        v-model:symptoms="patient.symptoms" 
+        @save-patient = "savePatient"
+        :id="patient.id"
+        />
+      </div>
       <div class="md:w-1/2 md:h-screen overflow-y-scroll mx-auto">
         <div v-if="patients.length > 0">
           <Patient 
