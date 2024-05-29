@@ -33,6 +33,6 @@ npm run build
 
 _Tools_
 
-Vue.js - The user interface framework
-Tailwind CSS - The styling framework
-LocalStorage - For data persistence
+* Vue.js - The user interface framework 
+* Tailwind CSS - The styling framework
+* LocalStorage - For data persistence
